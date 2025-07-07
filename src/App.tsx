@@ -1,9 +1,15 @@
-import { Button } from "./components/ui/button"
+import { Outlet } from "react-router"
+import Navber from "./components/layout/Navber"
+import Footer from "./components/layout/Footer"
 
 function App() {
   return (
     <div>
-      <Button>Click Me</Button>
+      <Navber />
+      <main className="min-h-[calc(100vh-136px)]">
+        <Outlet />
+      </main>
+      <Footer />
     </div>
   )
 }
