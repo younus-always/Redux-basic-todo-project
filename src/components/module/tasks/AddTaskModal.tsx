@@ -29,24 +29,38 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { Input } from "@/components/ui/input";
-import { useForm } from "react-hook-form";
+import { useForm, type FieldValues, type SubmitHandler } from "react-hook-form";
 import { Textarea } from "@/components/ui/textarea";
 import { Calendar } from "@/components/ui/calendar";
 import { format } from "date-fns";
 import { CalendarIcon } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import { addTask } from "@/redux/features/task/taskSlice";
+import type { ITask } from "@/types";
+import { selectUsers } from "@/redux/features/user/userSlice";
+import { useState } from "react";
 
-export function AddTaskModal() {
+export const AddTaskModal = () => {
+  const [open, setOpen] = useState(false);
   const form = useForm();
-  const onSubmit = (data) => {
-    console.log(data);
+  const dispatch = useAppDispatch();
+  const users = useAppSelector(selectUsers);
+
+  const onSubmit: SubmitHandler<FieldValues> = (data) => {
+    // console.log(data);
+    dispatch(addTask(data as ITask));
+    setOpen(false);
+    form.reset();
   };
 
   return (
-    <Dialog>
+    <Dialog open={open} onOpenChange={setOpen}>
       <form>
         <DialogTrigger asChild>
-          <Button variant="outline">Add Task</Button>
+          <Button variant="outline" className="cursor-pointer">
+            Add Task
+          </Button>
         </DialogTrigger>
         <DialogContent className="sm:max-w-[425px]">
           <DialogDescription className="sr-only">
@@ -64,7 +78,7 @@ export function AddTaskModal() {
                   <FormItem>
                     <FormLabel>Title</FormLabel>
                     <FormControl>
-                      <Input {...field} value={field.value || ""} />
+                      <Input {...field} value={field.value || ""} required />
                     </FormControl>
                   </FormItem>
                 )}
@@ -76,11 +90,12 @@ export function AddTaskModal() {
                   <FormItem>
                     <FormLabel>Description</FormLabel>
                     <FormControl>
-                      <Textarea {...field} value={field.value || ""} />
+                      <Textarea {...field} value={field.value || ""} required />
                     </FormControl>
                   </FormItem>
                 )}
               />
+              {/* select field */}
               <FormField
                 control={form.control}
                 name="priority"
@@ -90,6 +105,7 @@ export function AddTaskModal() {
                     <Select
                       onValueChange={field.onChange}
                       defaultValue={field.value}
+                      required
                     >
                       <FormControl>
                         <SelectTrigger className="w-full">
@@ -100,6 +116,34 @@ export function AddTaskModal() {
                         <SelectItem value="low">Low</SelectItem>
                         <SelectItem value="medium">Medium</SelectItem>
                         <SelectItem value="high">High</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </FormItem>
+                )}
+              />
+              {/* select field */}
+              <FormField
+                control={form.control}
+                name="assignTo"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Assign To</FormLabel>
+                    <Select
+                      onValueChange={field.onChange}
+                      defaultValue={field.value}
+                      required
+                    >
+                      <FormControl>
+                        <SelectTrigger className="w-full">
+                          <SelectValue placeholder="Select user" />
+                        </SelectTrigger>
+                      </FormControl>
+                      <SelectContent>
+                        {users.map((user) => (
+                          <SelectItem key={user.id} value={user.id}>
+                            {user.name}
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </FormItem>
@@ -136,10 +180,11 @@ export function AddTaskModal() {
                           mode="single"
                           selected={field.value}
                           onSelect={field.onChange}
-                        //   disabled={(date) =>
-                        //     date > new Date() || date < new Date("1900-01-01")
-                        //   }
+                          //   disabled={(date) =>
+                          //     date > new Date() || date < new Date("1900-01-01")
+                          //   }
                           captionLayout="dropdown"
+                          required
                         />
                       </PopoverContent>
                     </Popover>
@@ -150,7 +195,7 @@ export function AddTaskModal() {
                 <DialogClose asChild>
                   <Button variant="outline">Cancel</Button>
                 </DialogClose>
-                <Button type="submit">Save changes</Button>
+                <Button type="submit">Save</Button>
               </DialogFooter>
             </form>
           </Form>
@@ -158,4 +203,4 @@ export function AddTaskModal() {
       </form>
     </Dialog>
   );
-}
+};

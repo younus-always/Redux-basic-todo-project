@@ -10,7 +10,8 @@ const Navber = () => {
                               <p className="text-lg"><span className="font-bold">Task</span>Pulse</p>
                         </Link>
                         <ul className="flex items-center gap-3 text-slate-50">
-                              <li><Link to="/tasks">Task</Link></li>
+                              <li><Link to="/tasks">Tasks</Link></li>
+                              <li><Link to="/users">Users</Link></li>
                         </ul>
                         <div>
                               <ModeToggle />
