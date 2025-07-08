@@ -12,7 +12,6 @@ A local-first Todo + User Management application built with **React**, **Redux T
 - [Usage](#-usage)
 - [Scripts](#-scripts)
 - [Dependencies](#-dependencies)
-- [Development Tools](#-development-tools)
 - [Troubleshooting](#-troubleshooting)
 - [License](#-license)
 
@@ -51,6 +50,14 @@ This is a learning-focused application that combines a Todo list with basic user
 
 Make sure [**Bun**](https://bun.sh) is installed:
 
+Option A: Using npm (recommended for Node.js users)
+
+```bash
+npm i -g bun
+```
+
+Option B: Using the official shell script
+
 ```bash
 curl -fsSL https://bun.sh/install | bash
 ```
@@ -58,8 +65,8 @@ curl -fsSL https://bun.sh/install | bash
 Then clone and install dependencies:
 
 ```bash
-git clone https://github.com/younus-always/redux-.git
-cd redux-todo-app
+git clone https://github.com/younus-always/Redux-basic-todo-project.git
+cd Redux-basic-todo-project
 bun install
 ```
 
