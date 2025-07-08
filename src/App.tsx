@@ -6,7 +6,7 @@ function App() {
   return (
     <div>
       <Navber />
-      <main className="min-h-[calc(100vh-136px)]">
+      <main className="min-h-[calc(100vh-136px)] max-w-11/12 mx-auto py-8">
         <Outlet />
       </main>
       <Footer />

@@ -1,5 +1,6 @@
 import { Button } from "@/components/ui/button";
 import { Checkbox } from "@/components/ui/checkbox";
+import { cn } from "@/lib/utils";
 import type { ITask } from "@/types";
 import { Trash2 } from "lucide-react";
 
@@ -13,7 +14,11 @@ const TaskCard = ({ task }: IProps) => {
             <div className="border px-5 py-3 rounded-md">
                   <div className="flex justify-between items-center">
                         <div className="flex gap-2 items-center">
-                              <div className="size-3 rounded-full"></div>
+                              <div className={cn("size-3 rounded-full", {
+                                    "bg-red-500": priority === "low",
+                                    "bg-yellow-500": priority === "medium",
+                                    "bg-green-500": priority === "high",
+                              })}></div>
                               <h1 className="">{title}</h1>
                         </div>
                         <div className="flex gap-3 items-center">
