@@ -8,7 +8,7 @@ A local-first Todo + User Management application built with **React**, **Redux T
 
 - [Introduction](#-introduction)
 - [Features](#-features)
-- [Installation](#-installation)
+- [Installation](#%EF%B8%8F-installation)
 - [Usage](#-usage)
 - [Scripts](#-scripts)
 - [Dependencies](#-dependencies)
